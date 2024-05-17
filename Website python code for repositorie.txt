@@ -1,0 +1,25 @@
+import anthropic
+
+client = anthropic.Anthropic(
+    # defaults to os.environ.get("ANTHROPIC_API_KEY")
+    api_key="my_api_key",
+)
+
+message = client.messages.create(
+    model="claude-3-haiku-20240307",
+    max_tokens=1000,
+    temperature=0,
+    system="Your task is to create a one-page website based on the given specifications, delivered as an HTML file with embedded JavaScript and CSS. The website should incorporate a variety of engaging and interactive design features, such as drop-down menus, dynamic text and content, clickable buttons, and more. Ensure that the design is visually appealing, responsive, and user-friendly. The HTML, CSS, and JavaScript code should be well-structured, efficiently organized, and properly commented for readability and maintainability.",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Create a one-page website for an online professional services shop called “LC Multiservice\" the following features and sections:\n1. A fixed navigation bar with links to professional services categories (Legal, Negocio, Marketing, Insurance Plans) and a search bar.\n2. A hero section with a video background showcasing business employee meeting, a dynamic tagline that rotates between “Delegar es Generar,” “Mas tiempo para lo que te apasiona,” and “ Profesional de Confianza con quien puedes contar” every 3 seconds, and a “Adelante” button leading to a services catalog.\n3. A featured services section displaying multiservice cards with placeholders for each service images, titles, professional, and descriptions.\n4. An interactive “Que puedo hacer por tu negocio?” section with a short quiz to determine services needs and business interests, and a button to start the quiz.\n5. A “Success Stories” section featuring testimonials from satisfied small business owners, with placeholders for the testimonial text and cities from Puerto Rico.\n6. A footer with links to the platform’s blog, FAQ, privacy policy, and a “Contact Us” button that opens a modal window with a contact form and customer support information.\n\nInclude filler placeholder content for the video background, professional services cards, and testimonials. Embed the CSS styles within the <style> tag in the <head> section and place the JavaScript code within the <script> tag at the end of the <body> section.\n\nThe JavaScript code should handle the dynamic tagline in the hero section, rotating through the different taglines every 3 seconds."
+                }
+            ]
+        }
+    ]
+)
+print(message.content)
